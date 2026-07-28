@@ -19,6 +19,15 @@ def init_db():
 
 ADMIN_TOKEN = "ESDTXRCYFTGYVHUIJOMRDCTVFGYHBIUNJ"
 
+# ── TYMCZASOWY endpoint diagnostyczny — usunąć po znalezieniu problemu ──
+@app.route("/debug")
+def debug():
+    return jsonify({
+        "received_header": request.headers.get("Authorization"),
+        "expected": ADMIN_TOKEN,
+        "match": request.headers.get("Authorization") == ADMIN_TOKEN
+    })
+
 @app.route("/admin/create", methods=["POST"])
 def create_license():
     if request.headers.get("Authorization") != ADMIN_TOKEN:
