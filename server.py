@@ -19,6 +19,17 @@ def init_db():
 
 ADMIN_TOKEN = "ESDTXRCYFTGYVHUIJOMRDCTVFGYHBIUNJ"
 
+@app.route("/admin/reset_hwid", methods=["POST"])
+def reset_hwid():
+    if request.headers.get("Authorization") != ADMIN_TOKEN:
+        return jsonify({"error": "unauthorized"}), 401
+    key = request.json.get("key")
+    conn = sqlite3.connect(DB)
+    conn.execute("UPDATE licenses SET hwid='' WHERE key=?", (key,))
+    conn.commit()
+    conn.close()
+    return jsonify({"status": "hwid_reset"})
+    
 # ── TYMCZASOWY endpoint diagnostyczny — usunąć po znalezieniu problemu ──
 @app.route("/debug")
 def debug():
