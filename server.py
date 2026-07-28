@@ -17,7 +17,7 @@ def init_db():
     conn.commit()
     conn.close()
 
-ADMIN_TOKEN = "ZMIEN_TO_NA_WLASNY_LOSOWY_TOKEN"
+ADMIN_TOKEN = "ESDTXRCYFTGYVHUIJOMRDCTVFGYHBIUNJ"
 
 @app.route("/admin/create", methods=["POST"])
 def create_license():
